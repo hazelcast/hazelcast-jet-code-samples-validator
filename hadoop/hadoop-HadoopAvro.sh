@@ -28,7 +28,7 @@ mvn "-Dexec.args=-classpath %classpath com.hazelcast.jet.examples.hadoop.avro.Ha
 ### verify code sample output ###
 #################################
 for ((i = 0; i < 100; i += 2)); do
-    check_text_in_log "avro.User{username='name$i', password='pass$i', age=$i, status=true}"
+    check_text_in_log "{\"name\": \"name$i\", \"password\": \"pass$i\", \"age\": $i, \"status\": true}"
 done
 
 if [ ! -d ${JET_REPO}/examples/hadoop/hdfs-avro-input ]

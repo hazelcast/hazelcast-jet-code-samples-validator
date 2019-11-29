@@ -31,6 +31,11 @@ mvn "-Dexec.args=-classpath %classpath com.hazelcast.jet.examples.sessionwindow.
 grep "Session{userId=" ${OUTPUT_LOG_FILE} | tee ${OUTPUT_SESSIONS_LOG_FILE}
 
 EXPECTED_SESSION_LOG_COUNT=$(wc -l ${OUTPUT_SESSIONS_LOG_FILE} | awk '{ print $1 }')
+if [ ${EXPECTED_SESSION_LOG_COUNT} -lt 1 ]; then   
+    echo "Session log is empty.";
+    exit 1
+fi
+
 SESSION_LOG_COUNT=$(grep "Session{userId=user[0-9]\{3\}, start=[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\.[0-9]\{3\}, duration=[0-9 ][0-9]s, value={viewed=[0-9 ][0-9], purchases=\[.*\]}" ${OUTPUT_SESSIONS_LOG_FILE} | wc -l)
 if [ ${SESSION_LOG_COUNT} -ne ${EXPECTED_SESSION_LOG_COUNT} ]; then   
     echo "There is unexpected session log.";

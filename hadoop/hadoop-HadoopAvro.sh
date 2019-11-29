@@ -31,14 +31,14 @@ for ((i = 0; i < 100; i += 2)); do
     check_text_in_log "{\"name\": \"name$i\", \"password\": \"pass$i\", \"age\": $i, \"status\": true}"
 done
 
-if [ ! -d ${JET_REPO}/examples/hadoop/hdfs-avro-input ]
+if [ ! -d ${JET_REPO}/examples/hadoop/hadoop-avro-input ]
 then
-    echo "Directory ${JET_REPO}/examples/hadoop/hdfs-avro-input should be created during code sample execution."
+    echo "Directory ${JET_REPO}/examples/hadoop/hadoop-avro-input should be created during code sample execution."
     exit 1
 fi
 
-if [ ! -d ${JET_REPO}/examples/hadoop/hdfs-avro-output ]
+if [ ! -d ${JET_REPO}/examples/hadoop/hadoop-avro-output ]
 then
-    echo "Directory ${JET_REPO}/examples/hadoop/hdfs-avro-output should be created during code sample execution."
+    echo "Directory ${JET_REPO}/examples/hadoop/hadoop-avro-output should be created during code sample execution."
     exit 1
 fi

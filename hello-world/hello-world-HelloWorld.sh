@@ -61,7 +61,7 @@ fi
 
 MINIMAL_OCCURS=$(($INITIAL_TEXT_COUNT - 2))
 for i in {1..10}; do
-    EXPECTED_LINE_COUNT=$(grep " $i\. [0-9,]*$" ${OUTPUT_LOG_FILE} | wc -l)
+    EXPECTED_LINE_COUNT=$(grep "$i\. [0-9,]*$" ${OUTPUT_LOG_FILE} | wc -l)
     echo "Checking output for '$i\.' result...";
     if [ ${EXPECTED_LINE_COUNT} -lt 1 ]; then   
         echo "Log with results on position '$i.' has not been found in output log.";

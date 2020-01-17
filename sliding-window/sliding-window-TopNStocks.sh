@@ -60,13 +60,16 @@ fi
 echo "Checking whether log contains info about falling stocks ..."
 sed -n '/Top falling stocks:/{n;p;n;p;n;p;n;p;n;p}' ${OUTPUT_LOG_FILE} | tee ${FALLING_STOCKS_FILE}
 FALLING_STOCKS_ALL_LINES=$(wc -l ${FALLING_STOCKS_FILE} | awk '{ print $1 }')
-FALLING_STOCKS_CORRECT_LINES=$(grep ".* by -[0-9,\.]*$" ${FALLING_STOCKS_FILE} | wc -l)
+FALLING_STOCKS_LINES_WITH_NEGATIVES=$(grep ".* by -[0-9,\.]*$" ${FALLING_STOCKS_FILE} | wc -l)
+FALLING_STOCKS_LINES_WITH_POSITIVE_ZEROS=$(grep ".* by 0.00$" ${FALLING_STOCKS_FILE} | wc -l)
+FALLING_STOCKS_CORRECT_LINES=$((${FALLING_STOCKS_LINES_WITH_NEGATIVES}+${FALLING_STOCKS_LINES_WITH_POSITIVE_ZEROS}))
 if [ ${FALLING_STOCKS_ALL_LINES} -ne ${FALLING_STOCKS_CORRECT_LINES} ]; then   
   echo "There is line in falling stock which is not correct.";
   exit 1
 fi
-FALLING_STOCKS_ZERO_LINES=$(grep ".* by -0.00$" ${FALLING_STOCKS_FILE} | wc -l)
-if [ ${FALLING_STOCKS_ZERO_LINES} -eq ${FALLING_STOCKS_ALL_LINES} ]; then   
+FALLING_STOCKS_LINES_WITH_NEGATIVE_ZEROS=$(grep ".* by -0.00$" ${FALLING_STOCKS_FILE} | wc -l)
+FALLING_STOCKS_LINES_WITH_ZEROS=$((${FALLING_STOCKS_LINES_WITH_NEGATIVE_ZEROS}+${FALLING_STOCKS_LINES_WITH_POSITIVE_ZEROS}))
+if [ ${FALLING_STOCKS_LINES_WITH_ZEROS} -eq ${FALLING_STOCKS_ALL_LINES} ]; then   
   echo "There is no line in falling stock which includes negative value.";
   exit 1
 fi

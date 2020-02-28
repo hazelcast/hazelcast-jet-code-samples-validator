@@ -20,7 +20,7 @@ mvn "-Dexec.args=-classpath %classpath com.hazelcast.jet.examples.slidingwindow.
 ### verify code sample output ###
 #################################
 echo "Searching for job ID ..."
-JOB_ID=$(sed -n 's:.*\:5701.* Execution plan for jobId=\(.*\), jobName=.*:\1:p' ${OUTPUT_LOG_FILE})
+JOB_ID=$(sed -n 's:.* Execution plan for jobId=\(.*\), jobName=.*:\1:p' ${OUTPUT_LOG_FILE})
 if [ "x${JOB_ID}" == "x" ]; then   
     echo "'Execution plan for jobId' has not been found in output log.";
     exit 1
@@ -28,7 +28,7 @@ fi
 echo "job ID is ${JOB_ID}"
 
 echo "Searching for job executionId ..."
-JOB_EXECUTION_ID=$(sed -n 's:.*\:5701.*, executionId=\(.*\) initialized.*:\1:p' ${OUTPUT_LOG_FILE})
+JOB_EXECUTION_ID=$(sed -n 's:.*, executionId=\(.*\) initialized.*:\1:p' ${OUTPUT_LOG_FILE})
 if [ "x${JOB_EXECUTION_ID}" == "x" ]; then   
     echo "executionId for job has not been found in output log.";
     exit 1

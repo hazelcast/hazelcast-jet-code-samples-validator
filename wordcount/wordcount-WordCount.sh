@@ -27,7 +27,8 @@ mvn "-Dexec.args=-classpath %classpath com.hazelcast.jet.examples.wordcount.Word
 #################################
 ### verify code sample output ###
 #################################
-check_text_in_log "done in [0-9]* milliseconds. Top 100 entries are:"
+check_text_in_log "done in [0-9]* milliseconds."
+check_text_in_log "Top 100 entries are:"
 check_text_in_log "| 27843 | the     |"
 check_text_in_log "|  5910 | have    |"
 check_text_in_log "|  1340 | some    |"

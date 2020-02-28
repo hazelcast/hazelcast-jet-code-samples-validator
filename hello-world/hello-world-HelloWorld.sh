@@ -5,16 +5,6 @@ export JET_REPO=$2
 
 export OUTPUT_LOG_FILE=${SCRIPT_WORKSPACE}/output.log
 
-function check_text_in_log {
-    EXPECTED_TEXT=$1
-    echo "Checking log for '${EXPECTED_TEXT}'"
-    EXPECTED_TEXT_COUNT=$(grep "${EXPECTED_TEXT}" ${OUTPUT_LOG_FILE} | wc -l)
-    if [ ${EXPECTED_TEXT_COUNT} -lt 1 ]; then   
-        echo "Log '${EXPECTED_TEXT}' has not been found in output log.";
-        exit 1
-    fi
-}
-
 function kill_process {
     TO_KILL=$1
     echo "Searching for PID of process '${TO_KILL}'"
@@ -50,12 +40,9 @@ sleep 5
 #################################
 ### verify code sample output ###
 #################################
-check_text_in_log "Generating a stream of random numbers and calculating the top 10"
-check_text_in_log "The results will be written to a distributed map"
-
-INITIAL_TEXT_COUNT=$(grep "Top 10 random numbers observed so far in the stream are:" ${OUTPUT_LOG_FILE} | wc -l)
+INITIAL_TEXT_COUNT=$(grep "Top 10 random numbers in the latest window:" ${OUTPUT_LOG_FILE} | wc -l)
 if [ ${INITIAL_TEXT_COUNT} -lt 1 ]; then   
-    echo "Log 'Top 10 random numbers observed so far in the stream are:' has not been found in output log.";
+    echo "Log 'Top 10 random numbers in the latest window:' has not been found in output log.";
     exit 1
 fi
 

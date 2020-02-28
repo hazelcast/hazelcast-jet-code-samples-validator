@@ -21,8 +21,8 @@ mvn "-Dexec.args=-classpath %classpath com.hazelcast.jet.examples.sinkbuilder.To
 grep "Line starts with \`The\`:" ${OUTPUT_LOG_FILE} | tee ${OUTPUT_THE_LOG_FILE}
 
 EXPECTED_THE_LOG_COUNT=$(wc -l ${OUTPUT_THE_LOG_FILE} | awk '{ print $1 }')
-if [ ${EXPECTED_THE_LOG_COUNT} -ne 4286 ]; then   
-    echo "Number of line which starts with 'The' is not as expected. Expected: 4286 but was ${EXPECTED_THE_LOG_COUNT}";
+if [ ${EXPECTED_THE_LOG_COUNT} -ne 2143 ]; then   
+    echo "Number of line which starts with 'The' is not as expected. Expected: 2143 but was ${EXPECTED_THE_LOG_COUNT}";
     exit 1
 fi
 

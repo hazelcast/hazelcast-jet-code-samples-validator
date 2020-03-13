@@ -54,18 +54,18 @@ tail -n $TAIL_DELIMITER $OUTPUT_LOG_FILE >> $AFTER_RESTART_LOG_FILE
 
 check_text_in_log "Starting price updater. You should start seeing the output after 5 seconds" $BEFORE_RESTART_LOG_FILE
 check_text_in_log "After 20 seconds, one of the nodes will be shut down." $BEFORE_RESTART_LOG_FILE
-check_text_in_log "KeyedWindowResult{start=00:59:51.000, end=01:00:01.000, key='GOOG', value='1', isEarly=false}" $BEFORE_RESTART_LOG_FILE
-check_text_in_log "KeyedWindowResult{start=00:59:51.000, end=01:00:01.000, key='AMZN', value='1', isEarly=false}" $BEFORE_RESTART_LOG_FILE
-check_text_in_log "KeyedWindowResult{start=00:59:51.000, end=01:00:01.000, key='TSLA', value='1', isEarly=false}" $BEFORE_RESTART_LOG_FILE
-check_text_in_log "KeyedWindowResult{start=00:59:51.000, end=01:00:01.000, key='EBAY', value='1', isEarly=false}" $BEFORE_RESTART_LOG_FILE
-check_text_in_log "KeyedWindowResult{start=00:59:51.000, end=01:00:01.000, key='TSLA', value='1', isEarly=false}" $BEFORE_RESTART_LOG_FILE
-check_text_in_log "KeyedWindowResult{start=00:59:51.000, end=01:00:01.000, key='MSFT', value='1', isEarly=false}" $BEFORE_RESTART_LOG_FILE
-check_text_in_log "KeyedWindowResult{start=00:59:52.000, end=01:00:02.000, key='GOOG', value='2', isEarly=false}" $BEFORE_RESTART_LOG_FILE
-check_text_in_log "KeyedWindowResult{start=00:59:52.000, end=01:00:02.000, key='AMZN', value='2', isEarly=false}" $BEFORE_RESTART_LOG_FILE
-check_text_in_log "KeyedWindowResult{start=00:59:52.000, end=01:00:02.000, key='TSLA', value='2', isEarly=false}" $BEFORE_RESTART_LOG_FILE
-check_text_in_log "KeyedWindowResult{start=00:59:52.000, end=01:00:02.000, key='EBAY', value='2', isEarly=false}" $BEFORE_RESTART_LOG_FILE
-check_text_in_log "KeyedWindowResult{start=00:59:52.000, end=01:00:02.000, key='TSLA', value='2', isEarly=false}" $BEFORE_RESTART_LOG_FILE
-check_text_in_log "KeyedWindowResult{start=00:59:52.000, end=01:00:02.000, key='MSFT', value='2', isEarly=false}" $BEFORE_RESTART_LOG_FILE
+check_text_in_log "KeyedWindowResult{start=[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\.[0-9]\{3\}, end=[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\.[0-9]\{3\}, key='GOOG', value='1', isEarly=false}" $BEFORE_RESTART_LOG_FILE
+check_text_in_log "KeyedWindowResult{start=[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\.[0-9]\{3\}, end=[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\.[0-9]\{3\}, key='AMZN', value='1', isEarly=false}" $BEFORE_RESTART_LOG_FILE
+check_text_in_log "KeyedWindowResult{start=[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\.[0-9]\{3\}, end=[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\.[0-9]\{3\}, key='TSLA', value='1', isEarly=false}" $BEFORE_RESTART_LOG_FILE
+check_text_in_log "KeyedWindowResult{start=[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\.[0-9]\{3\}, end=[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\.[0-9]\{3\}, key='EBAY', value='1', isEarly=false}" $BEFORE_RESTART_LOG_FILE
+check_text_in_log "KeyedWindowResult{start=[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\.[0-9]\{3\}, end=[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\.[0-9]\{3\}, key='TSLA', value='1', isEarly=false}" $BEFORE_RESTART_LOG_FILE
+check_text_in_log "KeyedWindowResult{start=[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\.[0-9]\{3\}, end=[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\.[0-9]\{3\}, key='MSFT', value='1', isEarly=false}" $BEFORE_RESTART_LOG_FILE
+check_text_in_log "KeyedWindowResult{start=[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\.[0-9]\{3\}, end=[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\.[0-9]\{3\}, key='GOOG', value='2', isEarly=false}" $BEFORE_RESTART_LOG_FILE
+check_text_in_log "KeyedWindowResult{start=[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\.[0-9]\{3\}, end=[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\.[0-9]\{3\}, key='AMZN', value='2', isEarly=false}" $BEFORE_RESTART_LOG_FILE
+check_text_in_log "KeyedWindowResult{start=[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\.[0-9]\{3\}, end=[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\.[0-9]\{3\}, key='TSLA', value='2', isEarly=false}" $BEFORE_RESTART_LOG_FILE
+check_text_in_log "KeyedWindowResult{start=[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\.[0-9]\{3\}, end=[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\.[0-9]\{3\}, key='EBAY', value='2', isEarly=false}" $BEFORE_RESTART_LOG_FILE
+check_text_in_log "KeyedWindowResult{start=[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\.[0-9]\{3\}, end=[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\.[0-9]\{3\}, key='TSLA', value='2', isEarly=false}" $BEFORE_RESTART_LOG_FILE
+check_text_in_log "KeyedWindowResult{start=[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\.[0-9]\{3\}, end=[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\.[0-9]\{3\}, key='MSFT', value='2', isEarly=false}" $BEFORE_RESTART_LOG_FILE
 
 check_text_in_log "KeyedWindowResult{start=[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\.[0-9]\{3\}, end=[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\.[0-9]\{3\}, key='GOOG', value='1', isEarly=false}" $AFTER_RESTART_LOG_FILE
 check_text_in_log "KeyedWindowResult{start=[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\.[0-9]\{3\}, end=[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\.[0-9]\{3\}, key='AMZN', value='1', isEarly=false}" $AFTER_RESTART_LOG_FILE

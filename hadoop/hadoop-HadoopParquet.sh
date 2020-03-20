@@ -22,7 +22,7 @@ mvn clean install -U -B -Dmaven.test.failure.ignore=true -DskipTests
 ### execute code sample ###
 ###########################
 cd ${JET_REPO}/examples/hadoop
-mvn "-Dexec.args=-classpath %classpath com.hazelcast.jet.examples.hadoop.avro.HadoopAvro" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${OUTPUT_LOG_FILE}
+mvn "-Dexec.args=-classpath %classpath com.hazelcast.jet.examples.hadoop.parquet.HadoopParquet" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${OUTPUT_LOG_FILE}
 
 #################################
 ### verify code sample output ###
@@ -31,29 +31,29 @@ for ((i = 0; i < 100; i += 2)); do
     check_text_in_log "{\"name\": \"name$i\", \"password\": \"pass$i\", \"age\": $i, \"status\": true}"
 done
 
-export HADOOP_INPUT_DIR=${JET_REPO}/examples/hadoop/hadoop-avro-input
-export HADOOP_OUTPUT_DIR=${JET_REPO}/examples/hadoop/hadoop-avro-output
+export HDFS_INPUT_DIR=${JET_REPO}/examples/hadoop/hdfs-parquet-input
+export HDFS_OUTPUT_DIR=${JET_REPO}/examples/hadoop/hdfs-parquet-output
 
-if [ ! -d ${HADOOP_INPUT_DIR} ]
+if [ ! -d ${HDFS_INPUT_DIR} ]
 then
-    echo "Directory ${HADOOP_INPUT_DIR} should be created during code sample execution."
+    echo "Directory ${HDFS_INPUT_DIR} should be created during code sample execution."
     exit 1
 fi
 
-if [ -z "$(ls -A ${HADOOP_INPUT_DIR})" ]
+if [ -z "$(ls -A ${HDFS_INPUT_DIR})" ]
 then
-    echo "Directory ${HADOOP_INPUT_DIR} should not be empty."
+    echo "Directory ${HDFS_INPUT_DIR} should not be empty."
     exit 1
 fi
 
-if [ ! -d ${HADOOP_OUTPUT_DIR} ]
+if [ ! -d ${HDFS_OUTPUT_DIR} ]
 then
-    echo "Directory ${HADOOP_OUTPUT_DIR} should be created during code sample execution."
+    echo "Directory ${HDFS_OUTPUT_DIR} should be created during code sample execution."
     exit 1
 fi
 
-if [ -z "$(ls -A ${HADOOP_OUTPUT_DIR})" ]
+if [ -z "$(ls -A ${HDFS_OUTPUT_DIR})" ]
 then
-    echo "Directory ${HADOOP_OUTPUT_DIR} should not be empty."
+    echo "Directory ${HDFS_OUTPUT_DIR} should not be empty."
     exit 1
 fi

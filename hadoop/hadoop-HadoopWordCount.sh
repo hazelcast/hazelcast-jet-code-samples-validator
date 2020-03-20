@@ -51,6 +51,12 @@ then
     exit 1
 fi
 
+if [ -z "$(ls -A ${HADOOP_WORD_COUNT_DIR})" ]
+then
+    echo "Directory ${HADOOP_WORD_COUNT_DIR} should not be empty."
+    exit 1
+fi
+
 verify_word_count "the" 121242 ${HADOOP_WORD_COUNT_DIR}
 verify_word_count "have" 13614 ${HADOOP_WORD_COUNT_DIR}
 verify_word_count "some" 4197 ${HADOOP_WORD_COUNT_DIR}

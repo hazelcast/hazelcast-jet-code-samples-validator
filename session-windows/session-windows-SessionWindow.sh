@@ -36,7 +36,9 @@ if [ ${EXPECTED_SESSION_LOG_COUNT} -lt 1 ]; then
     exit 1
 fi
 
-SESSION_LOG_COUNT=$(grep "Session{userId=user[0-9]\{3\}, start=[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\.[0-9]\{3\}, duration=[0-9 ][0-9]s, value={viewed=[0-9 ][0-9], purchases=\[.*\]}" ${OUTPUT_SESSIONS_LOG_FILE} | wc -l)
+SESSION_LOG_COUNT_WITH_MS=$(grep "Session{userId=user[0-9]\{3\}, start=[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\.[0-9]\{3\}, duration=[0-9 ][0-9]s, value={viewed=[0-9 ][0-9], purchases=\[.*\]}" ${OUTPUT_SESSIONS_LOG_FILE} | wc -l)
+SESSION_LOG_COUNT_WITHOUT_MS=$(grep "Session{userId=user[0-9]\{3\}, start=[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\, duration=[0-9 ][0-9]s, value={viewed=[0-9 ][0-9], purchases=\[.*\]}" ${OUTPUT_SESSIONS_LOG_FILE} | wc -l)
+SESSION_LOG_COUNT=$((${SESSION_LOG_COUNT_WITH_MS}+${SESSION_LOG_COUNT_WITHOUT_MS}))
 if [ ${SESSION_LOG_COUNT} -ne ${EXPECTED_SESSION_LOG_COUNT} ]; then   
     echo "There is unexpected session log.";
     exit 1

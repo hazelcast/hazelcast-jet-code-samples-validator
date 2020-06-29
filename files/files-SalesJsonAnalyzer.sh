@@ -4,7 +4,8 @@ export SCRIPT_WORKSPACE=$1
 export JET_REPO=$2
 
 export OUTPUT_LOG_FILE=${SCRIPT_WORKSPACE}/output.log
-export SOURCE_DIRECTORY=${JET_REPO}/examples/files/data
+export JSON_DATA_FILE=${JET_REPO}/examples/files/data/sales.json
+export SOURCE_DIRECTORY=${JET_REPO}/examples/files/data/jsonData
 
 function check_text_in_log {
     EXPECTED_TEXT=$1
@@ -15,6 +16,9 @@ function check_text_in_log {
         exit 1
     fi
 }
+
+mkdir ${SOURCE_DIRECTORY}
+cp ${JSON_DATA_FILE} ${SOURCE_DIRECTORY}
 
 cd ${JET_REPO}
 mvn clean install -U -B -Dmaven.test.failure.ignore=true -DskipTests

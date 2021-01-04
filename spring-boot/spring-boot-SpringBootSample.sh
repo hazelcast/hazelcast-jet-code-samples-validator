@@ -49,8 +49,8 @@ sleep 60
 ####################################################
 check_text_in_log "Starting SpringBootSample on"
 check_text_in_log "Members {size:1, ver:1} \["
-check_text_not_in_log ": foo"
-check_text_not_in_log ": bar"
+check_text_not_in_log "\] foo"
+check_text_not_in_log "\] bar"
 
 ##################
 ### submit job ###
@@ -60,8 +60,8 @@ curl http://localhost:8080/submitJob
 #################################
 ### verify code sample output ###
 #################################
-check_text_in_log ": foo"
-check_text_in_log ": bar"
+check_text_in_log "\] foo"
+check_text_in_log "\] bar"
 
 # kill Jet
 kill_process "SpringBootSample"

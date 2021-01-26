@@ -41,5 +41,5 @@ sleep 5
 #################################
 ### verify code sample output ###
 #################################
-check_text_in_log "Started Python process: java.lang.UNIXProcess"
-check_text_in_log "Python process java.lang.UNIXProcess.* listening on port "
+check_text_in_log "Started Python process: "
+check_text_in_log "Python process .* listening on port "

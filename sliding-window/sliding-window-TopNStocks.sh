@@ -61,8 +61,13 @@ echo "Checking whether log contains info about falling stocks ..."
 sed -n '/Top falling stocks:/{n;p;n;p;n;p;n;p;n;p}' ${OUTPUT_LOG_FILE} | tee ${FALLING_STOCKS_FILE}
 FALLING_STOCKS_ALL_LINES=$(wc -l ${FALLING_STOCKS_FILE} | awk '{ print $1 }')
 FALLING_STOCKS_LINES_WITH_NEGATIVES=$(grep ".* by -[0-9,\.]*%$" ${FALLING_STOCKS_FILE} | wc -l)
+if [ ${FALLING_STOCKS_LINES_WITH_NEGATIVES} -lt 1 ]; then   
+  echo "There is no line in falling stock which includes some number value.";
+  exit 1
+fi
 FALLING_STOCKS_LINES_WITH_POSITIVE_ZEROS=$(grep ".* by 0.00%$" ${FALLING_STOCKS_FILE} | wc -l)
-FALLING_STOCKS_CORRECT_LINES=$((${FALLING_STOCKS_LINES_WITH_NEGATIVES}+${FALLING_STOCKS_LINES_WITH_POSITIVE_ZEROS}))
+FALLING_STOCKS_NAN_LINES=$(grep ".* by NaN%$" ${FALLING_STOCKS_FILE} | wc -l)
+FALLING_STOCKS_CORRECT_LINES=$((${FALLING_STOCKS_LINES_WITH_NEGATIVES}+${FALLING_STOCKS_LINES_WITH_POSITIVE_ZEROS}+${FALLING_STOCKS_NAN_LINES}))
 if [ ${FALLING_STOCKS_ALL_LINES} -ne ${FALLING_STOCKS_CORRECT_LINES} ]; then   
   echo "There is line in falling stock which is not correct.";
   exit 1

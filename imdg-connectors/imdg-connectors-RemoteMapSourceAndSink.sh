@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export SCRIPT_WORKSPACE=$1
-export JET_REPO=$2
+export CODE_SAMPLES_HOME=$2
 
 export OUTPUT_LOG_FILE=${SCRIPT_WORKSPACE}/output.log
 
@@ -35,14 +35,14 @@ function check_map_content {
     done
 }
 
-cd ${JET_REPO}
+cd ${CODE_SAMPLES_HOME}
 mvn clean install -U -B -Dmaven.test.failure.ignore=true -DskipTests
 
 ###########################
 ### execute code sample ###
 ###########################
-cd ${JET_REPO}/examples/imdg-connectors
-mvn "-Dexec.args=-classpath %classpath com.hazelcast.jet.examples.imdg.RemoteMapSourceAndSink" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${OUTPUT_LOG_FILE}
+cd ${CODE_SAMPLES_HOME}/jet/imdg-connectors
+mvn "-Dexec.args=-classpath %classpath com.hazelcast.samples.jet.imdg.RemoteMapSourceAndSink" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${OUTPUT_LOG_FILE}
 
 #################################
 ### verify code sample output ###

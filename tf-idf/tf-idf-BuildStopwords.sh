@@ -1,10 +1,10 @@
 #!/bin/bash
 
 export SCRIPT_WORKSPACE=$1
-export JET_REPO=$2
+export CODE_SAMPLES_HOME=$2
 
 export OUTPUT_LOG_FILE=${SCRIPT_WORKSPACE}/output.log
-export GENERATED_FILE=${JET_REPO}/examples/tf-idf/stopwords.txt
+export GENERATED_FILE=${CODE_SAMPLES_HOME}/jet/tf-idf/stopwords.txt
 
 function check_text_in_generated_file {
     EXPECTED_TEXT=$1
@@ -16,14 +16,14 @@ function check_text_in_generated_file {
     fi
 }
 
-cd ${JET_REPO}
+cd ${CODE_SAMPLES_HOME}
 mvn clean install -U -B -Dmaven.test.failure.ignore=true -DskipTests
 
 ###########################
 ### execute code sample ###
 ###########################
-cd ${JET_REPO}/examples/tf-idf
-mvn "-Dexec.args=-classpath %classpath com.hazelcast.jet.examples.tfidf.BuildStopwords" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${OUTPUT_LOG_FILE}
+cd ${CODE_SAMPLES_HOME}/jet/tf-idf
+mvn "-Dexec.args=-classpath %classpath com.hazelcast.samples.jet.tfidf.BuildStopwords" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${OUTPUT_LOG_FILE}
 
 #################################
 ### verify code sample output ###

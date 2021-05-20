@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export SCRIPT_WORKSPACE=$1
-export JET_REPO=$2
+export CODE_SAMPLES_HOME=$2
 
 export OUTPUT_LOG_FILE=${SCRIPT_WORKSPACE}/output.log
 
@@ -27,24 +27,24 @@ function verify_word_count {
     fi
 }
 
-cd ${JET_REPO}
+cd ${CODE_SAMPLES_HOME}
 mvn clean install -U -B -Dmaven.test.failure.ignore=true -DskipTests
 
 ###########################
 ### execute code sample ###
 ###########################
-cd ${JET_REPO}/examples/hadoop
-mvn "-Dexec.args=-classpath ${JET_REPO}/examples/wordcount/target/classes/:%classpath com.hazelcast.jet.examples.hadoop.HadoopWordCount" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${OUTPUT_LOG_FILE}
+cd ${CODE_SAMPLES_HOME}/jet/hadoop
+mvn "-Dexec.args=-classpath ${CODE_SAMPLES_HOME}/jet/wordcount/target/classes/:%classpath com.hazelcast.samples.jet.hadoop.HadoopWordCount" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${OUTPUT_LOG_FILE}
 
 #################################
 ### verify code sample output ###
 #################################
-check_text_in_log "Counting words from ${JET_REPO}/examples/wordcount/target/classes/books"
+check_text_in_log "Counting words from ${CODE_SAMPLES_HOME}/jet/wordcount/target/classes/books"
 check_text_in_log "Total input files to process : 20"
 check_text_in_log "Done in [0-9]* milliseconds."
 check_text_in_log "Output written to hadoop-word-count"
 
-HADOOP_WORD_COUNT_DIR=${JET_REPO}/examples/hadoop/hadoop-word-count
+HADOOP_WORD_COUNT_DIR=${CODE_SAMPLES_HOME}/jet/hadoop/hadoop-word-count
 if [ ! -d ${HADOOP_WORD_COUNT_DIR} ]
 then
     echo "Directory ${HADOOP_WORD_COUNT_DIR} should be created during code sample execution."

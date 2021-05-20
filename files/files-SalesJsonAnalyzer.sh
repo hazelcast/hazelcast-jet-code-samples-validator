@@ -1,11 +1,11 @@
 #!/bin/bash
 
 export SCRIPT_WORKSPACE=$1
-export JET_REPO=$2
+export CODE_SAMPLES_HOME=$2
 
 export OUTPUT_LOG_FILE=${SCRIPT_WORKSPACE}/output.log
-export JSON_DATA_FILE=${JET_REPO}/examples/files/data/sales.json
-export SOURCE_DIRECTORY=${JET_REPO}/examples/files/data/jsonData
+export JSON_DATA_FILE=${CODE_SAMPLES_HOME}/jet/files/data/sales.json
+export SOURCE_DIRECTORY=${CODE_SAMPLES_HOME}/jet/files/data/jsonData
 
 function check_text_in_log {
     EXPECTED_TEXT=$1
@@ -20,14 +20,14 @@ function check_text_in_log {
 mkdir ${SOURCE_DIRECTORY}
 cp ${JSON_DATA_FILE} ${SOURCE_DIRECTORY}
 
-cd ${JET_REPO}
+cd ${CODE_SAMPLES_HOME}
 mvn clean install -U -B -Dmaven.test.failure.ignore=true -DskipTests
 
 ###########################
 ### execute code sample ###
 ###########################
-cd ${JET_REPO}/examples/files
-mvn "-Dexec.args=-classpath %classpath com.hazelcast.jet.examples.files.SalesJsonAnalyzer ${SOURCE_DIRECTORY}" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${OUTPUT_LOG_FILE}
+cd ${CODE_SAMPLES_HOME}/jet/files
+mvn "-Dexec.args=-classpath %classpath com.hazelcast.samples.jet.files.SalesJsonAnalyzer ${SOURCE_DIRECTORY}" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${OUTPUT_LOG_FILE}
 
 #################################
 ### verify code sample output ###

@@ -1,20 +1,20 @@
 #!/bin/bash
 
 export SCRIPT_WORKSPACE=$1
-export JET_REPO=$2
+export CODE_SAMPLES_HOME=$2
 
 export OUTPUT_LOG_FILE=${SCRIPT_WORKSPACE}/output.log
 export RISING_STOCKS_FILE=${SCRIPT_WORKSPACE}/rising_stocks.log
 export FALLING_STOCKS_FILE=${SCRIPT_WORKSPACE}/falling_stocks.log
 
-cd ${JET_REPO}
+cd ${CODE_SAMPLES_HOME}
 mvn clean install -U -B -Dmaven.test.failure.ignore=true -DskipTests
 
 ###########################
 ### execute code sample ###
 ###########################
-cd ${JET_REPO}/examples/sliding-windows
-mvn "-Dexec.args=-classpath %classpath com.hazelcast.jet.examples.slidingwindow.TopNStocks" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${OUTPUT_LOG_FILE}
+cd ${CODE_SAMPLES_HOME}/jet/sliding-windows
+mvn "-Dexec.args=-classpath %classpath com.hazelcast.samples.jet.slidingwindow.TopNStocks" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${OUTPUT_LOG_FILE}
 
 #################################
 ### verify code sample output ###

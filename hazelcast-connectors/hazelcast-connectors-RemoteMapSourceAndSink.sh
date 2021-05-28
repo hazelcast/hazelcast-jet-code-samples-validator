@@ -41,8 +41,8 @@ mvn clean install -U -B -Dmaven.test.failure.ignore=true -DskipTests
 ###########################
 ### execute code sample ###
 ###########################
-cd ${CODE_SAMPLES_HOME}/jet/imdg-connectors
-mvn "-Dexec.args=-classpath %classpath com.hazelcast.samples.jet.imdg.RemoteMapSourceAndSink" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${OUTPUT_LOG_FILE}
+cd ${CODE_SAMPLES_HOME}/jet/hazelcast-connectors
+mvn "-Dexec.args=-classpath %classpath com.hazelcast.samples.jet.connectors.RemoteMapSourceAndSink" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${OUTPUT_LOG_FILE}
 
 #################################
 ### verify code sample output ###

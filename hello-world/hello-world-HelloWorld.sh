@@ -17,19 +17,25 @@ function kill_process {
 cd ${CODE_SAMPLES_HOME}
 mvn clean install -U -B -Dmaven.test.failure.ignore=true -DskipTests
 
+cd ${CODE_SAMPLES_HOME}/hazelcast/
+echo "cd into ${CODE_SAMPLES_HOME}/hazelcast/, current directory is: $(pwd)}"
+mvn clean install -U -B -Dmaven.test.failure.ignore=true -DskipTests
+
 ###########################
 ### execute code sample ###
 ###########################
-HZ_VERSION=$(grep "<version>" ${CODE_SAMPLES_HOME}/jet/hello-world/pom.xml | cut -d'>' -f 2 | cut -d'<' -f 1)
+HZ_VERSION=$(grep "<hazelcast.version>" ${CODE_SAMPLES_HOME}/pom.xml | cut -d'>' -f 2 | cut -d'<' -f 1)
+CODE_SAMPLES_VERSION=$(grep "<version>" ${CODE_SAMPLES_HOME}/jet/hello-world/pom.xml | cut -d'>' -f 2 | cut -d'<' -f 1)
+
 cd ${SCRIPT_WORKSPACE}
-unzip -q ${CODE_SAMPLES_HOME}/hazelcast-distribution/target/hazelcast-${HZ_VERSION}.zip
-cd hazelcast-*/bin
+unzip -q ${CODE_SAMPLES_HOME}/hazelcast/hazelcast-distribution/target/hazelcast-${HZ_VERSION}.zip
+cd ./hazelcast/hazelcast-*/bin
 # start Hazelcast member
 ./hazelcast-start &
 sleep 15
 
 # submit code sample
-./hazelcast submit ${CODE_SAMPLES_HOME}/jet/hello-world/target/jet-hello-world-${HZ_VERSION}.jar > ${OUTPUT_LOG_FILE} &
+./hazelcast submit ${CODE_SAMPLES_HOME}/jet/hello-world/target/jet-hello-world-${CODE_SAMPLES_VERSION}.jar > ${OUTPUT_LOG_FILE} &
 sleep 20
 
 # kill hazelcast member and hazelcast cli processes

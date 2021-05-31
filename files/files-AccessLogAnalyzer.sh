@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export SCRIPT_WORKSPACE=$1
-export JET_REPO=$2
+export CODE_SAMPLES_HOME=$2
 
 export OUTPUT_LOG_FILE=${SCRIPT_WORKSPACE}/output.log
 export SOURCE_DIRECTORY=${SCRIPT_WORKSPACE}/source
@@ -18,18 +18,18 @@ function check_text_in_sink {
     fi
 }
 
-cd ${JET_REPO}
+cd ${CODE_SAMPLES_HOME}
 mvn clean install -U -B -Dmaven.test.failure.ignore=true -DskipTests
 
 # prepare source directory
 mkdir ${SOURCE_DIRECTORY}
-cp ${JET_REPO}/examples/files/data/access_log.processed ${SOURCE_DIRECTORY}
+cp ${CODE_SAMPLES_HOME}/jet/files/data/access_log.processed ${SOURCE_DIRECTORY}
 
 ###########################
 ### execute code sample ###
 ###########################
-cd ${JET_REPO}/examples/files
-mvn "-Dexec.args=-classpath %classpath com.hazelcast.jet.examples.files.AccessLogAnalyzer ${SOURCE_DIRECTORY} ${SINK_DIRECTORY}" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${OUTPUT_LOG_FILE}
+cd ${CODE_SAMPLES_HOME}/jet/files
+mvn "-Dexec.args=-classpath %classpath com.hazelcast.samples.jet.files.AccessLogAnalyzer ${SOURCE_DIRECTORY} ${SINK_DIRECTORY}" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${OUTPUT_LOG_FILE}
 
 #################################
 ### verify code sample output ###

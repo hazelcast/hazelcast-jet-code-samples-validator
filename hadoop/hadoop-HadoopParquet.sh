@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export SCRIPT_WORKSPACE=$1
-export JET_REPO=$2
+export CODE_SAMPLES_HOME=$2
 
 export OUTPUT_LOG_FILE=${SCRIPT_WORKSPACE}/output.log
 
@@ -15,14 +15,14 @@ function check_text_in_log {
     fi
 }
 
-cd ${JET_REPO}
+cd ${CODE_SAMPLES_HOME}
 mvn clean install -U -B -Dmaven.test.failure.ignore=true -DskipTests
 
 ###########################
 ### execute code sample ###
 ###########################
-cd ${JET_REPO}/examples/hadoop
-mvn "-Dexec.args=-classpath %classpath com.hazelcast.jet.examples.hadoop.parquet.HadoopParquet" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${OUTPUT_LOG_FILE}
+cd ${CODE_SAMPLES_HOME}/jet/hadoop
+mvn "-Dexec.args=-classpath %classpath com.hazelcast.samples.jet.hadoop.parquet.HadoopParquet" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${OUTPUT_LOG_FILE}
 
 #################################
 ### verify code sample output ###
@@ -31,8 +31,8 @@ for ((i = 0; i < 100; i += 2)); do
     check_text_in_log "{\"name\": \"name$i\", \"password\": \"pass$i\", \"age\": $i, \"status\": true}"
 done
 
-export HDFS_INPUT_DIR=${JET_REPO}/examples/hadoop/hdfs-parquet-input
-export HDFS_OUTPUT_DIR=${JET_REPO}/examples/hadoop/hdfs-parquet-output
+export HDFS_INPUT_DIR=${CODE_SAMPLES_HOME}/jet/hadoop/hdfs-parquet-input
+export HDFS_OUTPUT_DIR=${CODE_SAMPLES_HOME}/jet/hadoop/hdfs-parquet-output
 
 if [ ! -d ${HDFS_INPUT_DIR} ]
 then

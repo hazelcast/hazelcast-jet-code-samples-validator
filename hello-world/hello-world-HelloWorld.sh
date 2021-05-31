@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export SCRIPT_WORKSPACE=$1
-export JET_REPO=$2
+export CODE_SAMPLES_HOME=$2
 
 export OUTPUT_LOG_FILE=${SCRIPT_WORKSPACE}/output.log
 
@@ -14,27 +14,33 @@ function kill_process {
     kill -9 ${PID_TO_KILL}
 }
 
-cd ${JET_REPO}
+cd ${CODE_SAMPLES_HOME}
+mvn clean install -U -B -Dmaven.test.failure.ignore=true -DskipTests
+
+cd ${CODE_SAMPLES_HOME}/hazelcast/
+echo "cd into ${CODE_SAMPLES_HOME}/hazelcast/, current directory is: $(pwd)"
 mvn clean install -U -B -Dmaven.test.failure.ignore=true -DskipTests
 
 ###########################
 ### execute code sample ###
 ###########################
-HZ_VERSION=$(grep "<version>" ${JET_REPO}/examples/hello-world/pom.xml | cut -d'>' -f 2 | cut -d'<' -f 1)
+HZ_VERSION=$(grep "<hazelcast.version>" ${CODE_SAMPLES_HOME}/pom.xml | cut -d'>' -f 2 | cut -d'<' -f 1)
+CODE_SAMPLES_VERSION=$(grep "<version>" ${CODE_SAMPLES_HOME}/jet/hello-world/pom.xml | cut -d'>' -f 2 | cut -d'<' -f 1)
+
 cd ${SCRIPT_WORKSPACE}
-unzip -q ${JET_REPO}/hazelcast-jet-distribution/target/hazelcast-jet-${HZ_VERSION}.zip
-cd hazelcast-jet-*/bin
-# start Jet
-./jet-start &
+unzip -q ${CODE_SAMPLES_HOME}/hazelcast/hazelcast-distribution/target/hazelcast-${HZ_VERSION}.zip
+cd ./hazelcast/hazelcast-*/bin
+# start Hazelcast member
+./hazelcast-start &
 sleep 15
 
 # submit code sample
-./jet submit ${JET_REPO}/examples/hello-world/target/hazelcast-jet-examples-hello-world-${HZ_VERSION}.jar > ${OUTPUT_LOG_FILE} &
+./hazelcast submit ${CODE_SAMPLES_HOME}/jet/hello-world/target/jet-hello-world-${CODE_SAMPLES_VERSION}.jar > ${OUTPUT_LOG_FILE} &
 sleep 20
 
-# kill Jet
-kill_process "JetCommandLine"
-kill_process "JetMemberStarter"
+# kill hazelcast member and hazelcast cli processes
+kill_process "JetCommandLine" # TODO: This name will change to the HazelcastCommandLine soon.
+kill_process "HazelcastMemberStarter"
 sleep 5
 
 #################################

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export SCRIPT_WORKSPACE=$1
-export JET_REPO=$2
+export CODE_SAMPLES_HOME=$2
 
 export USING_IMAP_OUTPUT_LOG_FILE=${SCRIPT_WORKSPACE}/output-enrichUsingIMap.log
 export USING_REPLICATED_MAP_OUTPUT_LOG_FILE=${SCRIPT_WORKSPACE}/output-enrichUsingReplicatedMap.log
@@ -114,14 +114,14 @@ function check_certain_enrichment {
     fi     
 }
 
-cd ${JET_REPO}
+cd ${CODE_SAMPLES_HOME}
 mvn clean install -U -B -Dmaven.test.failure.ignore=true -DskipTests
 
 ##################################################
 ### execute code sample with enrichUsingIMap() ###
 ##################################################
-cd ${JET_REPO}/examples/enrichment
-mvn "-Dexec.args=-classpath %classpath com.hazelcast.jet.examples.enrichment.Enrichment" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${USING_IMAP_OUTPUT_LOG_FILE}
+cd ${CODE_SAMPLES_HOME}/jet/enrichment
+mvn "-Dexec.args=-classpath %classpath com.hazelcast.samples.jet.enrichment.Enrichment" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${USING_IMAP_OUTPUT_LOG_FILE}
 
 ########################################################
 ### verify code sample output with enrichUsingIMap() ###
@@ -145,11 +145,11 @@ check_trades_enrichment ${USING_IMAP_OUTPUT_LOG_FILE}
 ##################################################
 ### execute code sample with enrichUsingReplicatedMap() ###
 ##################################################
-cd ${JET_REPO}/examples/enrichment
-sed -i 's#            Pipeline p = enrichUsingIMap();#//            Pipeline p = enrichUsingIMap();#' ${JET_REPO}/examples/enrichment/src/main/java/com/hazelcast/jet/examples/enrichment/Enrichment.java
-sed -i 's#//            Pipeline p = enrichUsingReplicatedMap();#            Pipeline p = enrichUsingReplicatedMap();#' ${JET_REPO}/examples/enrichment/src/main/java/com/hazelcast/jet/examples/enrichment/Enrichment.java
+cd ${CODE_SAMPLES_HOME}/jet/enrichment
+sed -i 's#            Pipeline p = enrichUsingIMap();#//            Pipeline p = enrichUsingIMap();#' ${CODE_SAMPLES_HOME}/jet/enrichment/src/main/java/com/hazelcast/samples/jet/enrichment/Enrichment.java
+sed -i 's#//            Pipeline p = enrichUsingReplicatedMap();#            Pipeline p = enrichUsingReplicatedMap();#' ${CODE_SAMPLES_HOME}/jet/enrichment/src/main/java/com/hazelcast/samples/jet/enrichment/Enrichment.java
 mvn clean install -Pquick
-mvn "-Dexec.args=-classpath %classpath com.hazelcast.jet.examples.enrichment.Enrichment" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${USING_REPLICATED_MAP_OUTPUT_LOG_FILE}
+mvn "-Dexec.args=-classpath %classpath com.hazelcast.samples.jet.enrichment.Enrichment" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${USING_REPLICATED_MAP_OUTPUT_LOG_FILE}
 
 ########################################################
 ### verify code sample output with enrichUsingReplicatedMap() ###
@@ -173,11 +173,11 @@ check_trades_enrichment ${USING_REPLICATED_MAP_OUTPUT_LOG_FILE}
 ##################################################
 ### execute code sample with enrichUsingHashJoin() ###
 ##################################################
-cd ${JET_REPO}/examples/enrichment
-sed -i 's#            Pipeline p = enrichUsingReplicatedMap();#//            Pipeline p = enrichUsingReplicatedMap();#' ${JET_REPO}/examples/enrichment/src/main/java/com/hazelcast/jet/examples/enrichment/Enrichment.java
-sed -i 's#//            Pipeline p = enrichUsingHashJoin();#            Pipeline p = enrichUsingHashJoin();#' ${JET_REPO}/examples/enrichment/src/main/java/com/hazelcast/jet/examples/enrichment/Enrichment.java
+cd ${CODE_SAMPLES_HOME}/jet/enrichment
+sed -i 's#            Pipeline p = enrichUsingReplicatedMap();#//            Pipeline p = enrichUsingReplicatedMap();#' ${CODE_SAMPLES_HOME}/jet/enrichment/src/main/java/com/hazelcast/samples/jet/enrichment/Enrichment.java
+sed -i 's#//            Pipeline p = enrichUsingHashJoin();#            Pipeline p = enrichUsingHashJoin();#' ${CODE_SAMPLES_HOME}/jet/enrichment/src/main/java/com/hazelcast/samples/jet/enrichment/Enrichment.java
 mvn clean install -Pquick
-mvn "-Dexec.args=-classpath %classpath com.hazelcast.jet.examples.enrichment.Enrichment" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${USING_HASH_JOIN_OUTPUT_LOG_FILE}
+mvn "-Dexec.args=-classpath %classpath com.hazelcast.samples.jet.enrichment.Enrichment" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${USING_HASH_JOIN_OUTPUT_LOG_FILE}
 
 ########################################################
 ### verify code sample output with enrichUsingHashJoin() ###

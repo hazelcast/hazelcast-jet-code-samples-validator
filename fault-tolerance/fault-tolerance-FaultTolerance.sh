@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export SCRIPT_WORKSPACE=$1
-export JET_REPO=$2
+export CODE_SAMPLES_HOME=$2
 
 export OUTPUT_LOG_FILE=${SCRIPT_WORKSPACE}/output.log
 export BEFORE_RESTART_LOG_FILE=${SCRIPT_WORKSPACE}/before_restart_output.log
@@ -27,14 +27,14 @@ function kill_process {
     kill -9 ${PID_TO_KILL}
 }
 
-cd ${JET_REPO}
+cd ${CODE_SAMPLES_HOME}
 mvn clean install -U -B -Dmaven.test.failure.ignore=true -DskipTests
 
 ###########################
 ### execute code sample ###
 ###########################
-cd ${JET_REPO}/examples/fault-tolerance
-mvn "-Dexec.args=-classpath %classpath com.hazelcast.jet.examples.faulttolerance.FaultTolerance" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${OUTPUT_LOG_FILE} &
+cd ${CODE_SAMPLES_HOME}/jet/fault-tolerance
+mvn "-Dexec.args=-classpath %classpath com.hazelcast.samples.jet.faulttolerance.FaultTolerance" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${OUTPUT_LOG_FILE} &
 sleep 60
 
 # kill Jet

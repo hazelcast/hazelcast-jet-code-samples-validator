@@ -1,10 +1,10 @@
 #!/bin/bash
 
 export SCRIPT_WORKSPACE=$1
-export JET_REPO=$2
+export CODE_SAMPLES_HOME=$2
 
 export OUTPUT_LOG_FILE=${SCRIPT_WORKSPACE}/output.log
-export AVRO_SOURCE=${JET_REPO}/examples/files/users
+export AVRO_SOURCE=${CODE_SAMPLES_HOME}/jet/files/users
 
 function check_text_in_log {
     EXPECTED_TEXT=$1
@@ -16,16 +16,16 @@ function check_text_in_log {
     fi
 }
 
-cd ${JET_REPO}
+cd ${CODE_SAMPLES_HOME}
 mvn clean install -U -B -Dmaven.test.failure.ignore=true -DskipTests
 
 ###########################
 ### execute code sample ###
 ###########################
-cd ${JET_REPO}/examples/files
+cd ${CODE_SAMPLES_HOME}/jet/files
 
 # It's necessary to run AvroSink first to create source data
-mvn "-Dexec.args=-classpath %classpath com.hazelcast.jet.examples.files.avro.AvroSink" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec
+mvn "-Dexec.args=-classpath %classpath com.hazelcast.samples.jet.files.avro.AvroSink" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec
 
 if [ ! -d ${AVRO_SOURCE} ]
 then
@@ -38,7 +38,7 @@ then
     exit 1
 fi
 
-mvn "-Dexec.args=-classpath %classpath com.hazelcast.jet.examples.files.avro.AvroSource" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${OUTPUT_LOG_FILE}
+mvn "-Dexec.args=-classpath %classpath com.hazelcast.samples.jet.files.avro.AvroSource" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${OUTPUT_LOG_FILE}
 
 #################################
 ### verify code sample output ###

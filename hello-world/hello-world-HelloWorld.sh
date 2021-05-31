@@ -18,7 +18,7 @@ cd ${CODE_SAMPLES_HOME}
 mvn clean install -U -B -Dmaven.test.failure.ignore=true -DskipTests
 
 cd ${CODE_SAMPLES_HOME}/hazelcast/
-echo "cd into ${CODE_SAMPLES_HOME}/hazelcast/, current directory is: $(pwd)}"
+echo "cd into ${CODE_SAMPLES_HOME}/hazelcast/, current directory is: $(pwd)"
 mvn clean install -U -B -Dmaven.test.failure.ignore=true -DskipTests
 
 ###########################

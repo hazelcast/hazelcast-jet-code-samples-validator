@@ -2,6 +2,7 @@
 
 export SCRIPT_WORKSPACE=$1
 export CODE_SAMPLES_HOME=$2
+export HAZELCAST_HOME=$3
 
 export OUTPUT_LOG_FILE=${SCRIPT_WORKSPACE}/output.log
 
@@ -17,9 +18,8 @@ function kill_process {
 cd ${CODE_SAMPLES_HOME}
 mvn clean install -U -B -Dmaven.test.failure.ignore=true -DskipTests
 
-cd ${CODE_SAMPLES_HOME}/hazelcast/
-echo "cd into ${CODE_SAMPLES_HOME}/hazelcast/, current directory is: $(pwd)"
-mvn clean install -U -B -Dmaven.test.failure.ignore=true -DskipTests
+cd ${HAZELCAST_HOME}
+mvn clean install -Pquick
 
 ###########################
 ### execute code sample ###
@@ -28,8 +28,8 @@ HZ_VERSION=$(grep "<hazelcast.version>" ${CODE_SAMPLES_HOME}/pom.xml | cut -d'>'
 CODE_SAMPLES_VERSION=$(grep "<version>" ${CODE_SAMPLES_HOME}/jet/hello-world/pom.xml | cut -d'>' -f 2 | cut -d'<' -f 1)
 
 cd ${SCRIPT_WORKSPACE}
-unzip -q ${CODE_SAMPLES_HOME}/hazelcast/hazelcast-distribution/target/hazelcast-${HZ_VERSION}.zip
-cd ./hazelcast/hazelcast-*/bin
+unzip -q ${HAZELCAST_HOME}/distribution/target/hazelcast-${HZ_VERSION}.zip
+cd hazelcast-*/bin
 # start Hazelcast member
 ./hazelcast-start &
 sleep 15

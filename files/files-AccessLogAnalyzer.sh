@@ -29,7 +29,7 @@ cp ${CODE_SAMPLES_HOME}/jet/files/data/access_log.processed ${SOURCE_DIRECTORY}
 ### execute code sample ###
 ###########################
 cd ${CODE_SAMPLES_HOME}/jet/files
-mvn "-Dexec.args=-classpath %classpath com.hazelcast.samples.jet.files.AccessLogAnalyzer ${SOURCE_DIRECTORY} ${SINK_DIRECTORY}" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${OUTPUT_LOG_FILE}
+mvn "-Dexec.args=-Dhazelcast.phone.home.enabled=false -classpath %classpath com.hazelcast.samples.jet.files.AccessLogAnalyzer ${SOURCE_DIRECTORY} ${SINK_DIRECTORY}" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${OUTPUT_LOG_FILE}
 
 #################################
 ### verify code sample output ###

@@ -121,7 +121,7 @@ mvn clean install -U -B -Dmaven.test.failure.ignore=true -DskipTests
 ### execute code sample with enrichUsingIMap() ###
 ##################################################
 cd ${CODE_SAMPLES_HOME}/jet/enrichment
-mvn "-Dexec.args=-classpath %classpath com.hazelcast.samples.jet.enrichment.Enrichment" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${USING_IMAP_OUTPUT_LOG_FILE}
+mvn "-Dexec.args=-Dhazelcast.phone.home.enabled=false -classpath %classpath com.hazelcast.samples.jet.enrichment.Enrichment" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${USING_IMAP_OUTPUT_LOG_FILE}
 
 ########################################################
 ### verify code sample output with enrichUsingIMap() ###
@@ -149,7 +149,7 @@ cd ${CODE_SAMPLES_HOME}/jet/enrichment
 sed -i 's#            Pipeline p = enrichUsingIMap();#//            Pipeline p = enrichUsingIMap();#' ${CODE_SAMPLES_HOME}/jet/enrichment/src/main/java/com/hazelcast/samples/jet/enrichment/Enrichment.java
 sed -i 's#//            Pipeline p = enrichUsingReplicatedMap();#            Pipeline p = enrichUsingReplicatedMap();#' ${CODE_SAMPLES_HOME}/jet/enrichment/src/main/java/com/hazelcast/samples/jet/enrichment/Enrichment.java
 mvn clean install -Pquick
-mvn "-Dexec.args=-classpath %classpath com.hazelcast.samples.jet.enrichment.Enrichment" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${USING_REPLICATED_MAP_OUTPUT_LOG_FILE}
+mvn "-Dexec.args=-Dhazelcast.phone.home.enabled=false -classpath %classpath com.hazelcast.samples.jet.enrichment.Enrichment" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${USING_REPLICATED_MAP_OUTPUT_LOG_FILE}
 
 ########################################################
 ### verify code sample output with enrichUsingReplicatedMap() ###
@@ -177,7 +177,7 @@ cd ${CODE_SAMPLES_HOME}/jet/enrichment
 sed -i 's#            Pipeline p = enrichUsingReplicatedMap();#//            Pipeline p = enrichUsingReplicatedMap();#' ${CODE_SAMPLES_HOME}/jet/enrichment/src/main/java/com/hazelcast/samples/jet/enrichment/Enrichment.java
 sed -i 's#//            Pipeline p = enrichUsingHashJoin();#            Pipeline p = enrichUsingHashJoin();#' ${CODE_SAMPLES_HOME}/jet/enrichment/src/main/java/com/hazelcast/samples/jet/enrichment/Enrichment.java
 mvn clean install -Pquick
-mvn "-Dexec.args=-classpath %classpath com.hazelcast.samples.jet.enrichment.Enrichment" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${USING_HASH_JOIN_OUTPUT_LOG_FILE}
+mvn "-Dexec.args=-Dhazelcast.phone.home.enabled=false -classpath %classpath com.hazelcast.samples.jet.enrichment.Enrichment" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${USING_HASH_JOIN_OUTPUT_LOG_FILE}
 
 ########################################################
 ### verify code sample output with enrichUsingHashJoin() ###

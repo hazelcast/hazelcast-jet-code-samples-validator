@@ -25,7 +25,7 @@ mvn clean install -U -B -Dmaven.test.failure.ignore=true -DskipTests
 cd ${CODE_SAMPLES_HOME}/jet/files
 
 # It's necessary to run AvroSink first to create source data
-mvn "-Dexec.args=-classpath %classpath com.hazelcast.samples.jet.files.avro.AvroSink" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec
+mvn "-Dexec.args=-Dhazelcast.phone.home.enabled=false -classpath %classpath com.hazelcast.samples.jet.files.avro.AvroSink" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec
 
 if [ ! -d ${AVRO_SOURCE} ]
 then
@@ -38,7 +38,7 @@ then
     exit 1
 fi
 
-mvn "-Dexec.args=-classpath %classpath com.hazelcast.samples.jet.files.avro.AvroSource" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${OUTPUT_LOG_FILE}
+mvn "-Dexec.args=-Dhazelcast.phone.home.enabled=false -classpath %classpath com.hazelcast.samples.jet.files.avro.AvroSource" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${OUTPUT_LOG_FILE}
 
 #################################
 ### verify code sample output ###

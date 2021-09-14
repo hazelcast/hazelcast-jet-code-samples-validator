@@ -31,15 +31,15 @@ cd ${SCRIPT_WORKSPACE}
 unzip -q ${HAZELCAST_HOME}/distribution/target/hazelcast-${HZ_VERSION}.zip
 cd hazelcast-*/bin
 # start Hazelcast member
-./hazelcast-start &
+./hz-start &
 sleep 15
 
 # submit code sample
-./hazelcast submit ${CODE_SAMPLES_HOME}/jet/hello-world/target/jet-hello-world-${CODE_SAMPLES_VERSION}.jar > ${OUTPUT_LOG_FILE} &
+./hz-cli submit ${CODE_SAMPLES_HOME}/jet/hello-world/target/jet-hello-world-${CODE_SAMPLES_VERSION}.jar > ${OUTPUT_LOG_FILE} &
 sleep 20
 
 # kill hazelcast member and hazelcast cli processes
-kill_process "JetCommandLine" # TODO: This name will change to the HazelcastCommandLine soon.
+kill_process "HazelcastCommandLine"
 kill_process "HazelcastMemberStarter"
 sleep 5
 

@@ -34,7 +34,7 @@ mvn clean install -U -B -Dmaven.test.failure.ignore=true -DskipTests
 ### execute code sample ###
 ###########################
 cd ${CODE_SAMPLES_HOME}/jet/fault-tolerance
-mvn "-Dexec.args=-classpath %classpath com.hazelcast.samples.jet.faulttolerance.FaultTolerance" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${OUTPUT_LOG_FILE} &
+mvn "-Dexec.args=-Dhazelcast.phone.home.enabled=false -classpath %classpath com.hazelcast.samples.jet.faulttolerance.FaultTolerance" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${OUTPUT_LOG_FILE} &
 sleep 60
 
 # kill Jet

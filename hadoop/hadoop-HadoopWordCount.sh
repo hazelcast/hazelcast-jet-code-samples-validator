@@ -34,7 +34,7 @@ mvn clean install -U -B -Dmaven.test.failure.ignore=true -DskipTests
 ### execute code sample ###
 ###########################
 cd ${CODE_SAMPLES_HOME}/jet/hadoop
-mvn "-Dexec.args=-classpath ${CODE_SAMPLES_HOME}/jet/wordcount/target/classes/:%classpath com.hazelcast.samples.jet.hadoop.HadoopWordCount" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${OUTPUT_LOG_FILE}
+mvn "-Dexec.args=-Dhazelcast.phone.home.enabled=false -classpath ${CODE_SAMPLES_HOME}/jet/wordcount/target/classes/:%classpath com.hazelcast.samples.jet.hadoop.HadoopWordCount" -Dexec.executable=java org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | tee ${OUTPUT_LOG_FILE}
 
 #################################
 ### verify code sample output ###

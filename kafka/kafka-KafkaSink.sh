@@ -27,7 +27,7 @@ mvn "-Dexec.args=-Dhazelcast.phone.home.enabled=false -classpath %classpath com.
 #################################
 ### verify code sample output ###
 #################################
-check_text_in_log "\[ZooKeeperClient\] Connected"
+check_text_in_log "\[ZooKeeperClient Kafka server\] Connected"
 check_text_in_log "\[KafkaServer id=0\] started"
 check_text_in_log "Filling IMap"
 check_text_in_log "Published 50000 messages to IMap -> source"

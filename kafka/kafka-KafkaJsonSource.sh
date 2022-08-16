@@ -50,7 +50,7 @@ if [ ${EXPECTED_JOB_FINISH_LOG_COUNT} -lt 1 ]; then
     exit 1
 fi
 
-check_text_in_log "\[ZooKeeperClient\] Connected"
+check_text_in_log "\[ZooKeeperClient Kafka server\] Connected"
 check_text_in_log "\[KafkaServer id=0\] started"
 check_text_in_log "Received 20 entries in [0-9]* milliseconds."
 
